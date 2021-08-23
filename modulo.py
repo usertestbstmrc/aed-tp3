@@ -1,15 +1,28 @@
 #!/usr/bin/python3
 
+"""
+Functions Module
++ All functions are documented
++ Git + GitHub support to TEAM WORK
++ Trello to organize project tasks
+"""
+
 # MÓDULO
 
-# RO
+def list_generator(size: int) -> list:
+    """Create list with 'n' slots"""
+    libros = size * [None]
+
+    return libros
+
+
 def opcion1_manual():
     # ESTO LO ESTÁ HACIENDO MICA CREO
     pass
 
+
 def opcion1_automatica():
     pass
-
 
 
 def opcion2():
@@ -47,6 +60,7 @@ def mostrar_opciones():
     print('6. Consulta de un género:')
     print('7. Consulta de precio por grupo:')
     print('8. Salir')
+
 
 def print_submenu_opc1():
     """Print in console submenu option 1"""
