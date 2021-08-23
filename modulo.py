@@ -1,9 +1,15 @@
+#!/usr/bin/python3
 
 # MÓDULO
 
 # RO
-def opcion1():
+def opcion1_manual():
+    # ESTO LO ESTÁ HACIENDO MICA CREO
     pass
+
+def opcion1_automatica():
+    pass
+
 
 
 def opcion2():
@@ -42,4 +48,10 @@ def mostrar_opciones():
     print('7. Consulta de precio por grupo:')
     print('8. Salir')
 
+def print_submenu_opc1():
+    """Print in console submenu option 1"""
 
+    sub_m = '==' * 18 + '\n|--> 1. Carga Manual' +  '\n|' \
+            + '\n|--> 2. Generación Automática' + '\n|'
+
+    print(sub_m)
