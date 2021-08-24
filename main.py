@@ -6,7 +6,7 @@ this module execute main program
 
 # MAIN
 import modulo as m
-
+from registro import Libro
 
 def main():
     """contents all calls fuctions from modulo and user interact instances"""
@@ -19,14 +19,32 @@ def main():
 
         if opcion == 1:
             print("Generación y carga de libros")
+
+            books_list_size = int(input('Cantidad de libros a ingresar al sistema: '))
+            books = m.list_generator(books_list_size)
             opc_submenu = None
 
             while opc_submenu != -1:
                 m.print_submenu_opc1()
                 opc_submenu = int(input('|--> Ingrese su opción: '))
+                book_index = -1
 
                 if opc_submenu == 1:
-                    m.opcion1_manual()
+
+                    for book in books:
+                        book_index += 1
+
+                        isbn_info = input('ISBN: ')
+                        # FUNCION DE VALIDACIÓN DE MICA
+                        title_info = input('TÍTULO: ')
+                        gender_info = int(input('GÉNERO: '))
+                        languaje_info = int(input('IDIOMA: '))
+                        price_info = float(input('PRECIO: '))
+
+                        books[book_index] = Libro(isbn_info, title_info, gender_info, \
+                                languaje_info, price_info)
+
+                    break
 
                 elif opc_submenu == 2:
                     m.opcion1_automatica()
