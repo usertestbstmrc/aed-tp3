@@ -24,7 +24,7 @@ def main():
             books = m.list_generator(books_list_size)
             opc_submenu = None
 
-            while opc_submenu != -1:
+            while opc_submenu not in range(3):
                 m.print_submenu_opc1()
                 opc_submenu = int(input('|--> Ingrese su opción: '))
                 book_index = -1
@@ -43,7 +43,11 @@ def main():
                             m.gender_menu()
                             gender_info = int(input('SELECCIONE EL GÉNERO: '))
 
-                        languaje_info = int(input('IDIOMA: '))
+                        languaje_info = -1
+                        while languaje_info not in range (1, 6):
+                            m.languaje_menu()
+                            languaje_info = int(input('IDIOMA: '))
+
                         price_info = float(input('PRECIO: '))
 
                         books[book_index] = Libro(isbn_info, title_info, gender_info, \

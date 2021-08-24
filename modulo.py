@@ -23,10 +23,13 @@ def gender_menu():
 
     print(gen_menu)
 
+def languaje_menu():
+    """Print Languaje menu"""
+    lan_menu = '\nIDIOMA' + '\n|-> 1. Español' + '\n|-> 2. Inglés' + '\n|-> 3. Francés' \
+            + '\n|-> 4. Italiano' + '\n|-> 5. Otros'
 
-def opcion1_manual():
-    # ESTO LO ESTÁ HACIENDO MICA CREO
-    pass
+    print(lan_menu)
+
 
 
 def opcion1_automatica():
