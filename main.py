@@ -37,7 +37,12 @@ def main():
                         isbn_info = input('ISBN: ')
                         # FUNCION DE VALIDACIÓN DE MICA
                         title_info = input('TÍTULO: ')
-                        gender_info = int(input('GÉNERO: '))
+
+                        gender_info = -1
+                        while gender_info not in range(10):
+                            m.gender_menu()
+                            gender_info = int(input('SELECCIONE EL GÉNERO: '))
+
                         languaje_info = int(input('IDIOMA: '))
                         price_info = float(input('PRECIO: '))
 

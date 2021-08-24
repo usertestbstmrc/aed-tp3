@@ -3,8 +3,6 @@
 """
 Functions Module
 + All functions are documented
-+ Git + GitHub support to TEAM WORK
-+ Trello to organize project tasks
 """
 
 # MÓDULO
@@ -14,6 +12,16 @@ def list_generator(size: int) -> list:
     libros = size * [None]
 
     return libros
+
+
+def gender_menu():
+    """Print gender menu"""
+    gen_menu = '\nGÉNERO' + '\n|-> 0. Autoayuda' + '\n|-> 1. Arte' + '\n|-> 2. Ficción' \
+            + '\n|-> 3. Computación' + '\n|-> 4. Economía'+ '\n|-> 5. Escolar' \
+            + '\n|-> 6. Sociedad' + '\n|-> 7. Gastronomía' + '\n|-> 8. Infantil' \
+            + '\n|-> 9. Otros'
+
+    print(gen_menu)
 
 
 def opcion1_manual():
