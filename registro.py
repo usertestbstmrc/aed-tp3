@@ -23,9 +23,9 @@ class Libro:
 
     def __str__(self) -> str:
         """Retorna una cadena de carateres str"""
-        s = '|ISBN: ' + self.isbn
-        s = '|Título: ' + self.titulo
-        s += '|Género: ' + str(self.genero)
-        s += '|Idioma: ' + str(self.genero)
-        s += '|Precio: ' + str(self.precio)
+        s = '•|ISBN: ' + self.isbn + '|__'
+        s += '|Título: ' + self.titulo + '|__'
+        s += '|Género: ' + str(self.genero) + '|__'
+        s += '|Idioma: ' + str(self.genero) + '|__'
+        s += '|Precio: $' + str(self.precio) + '|'
         return s

@@ -56,10 +56,11 @@ def main():
                     break
 
                 elif opc_submenu == 2:
-                    m.opcion1_automatica()
+                    m.opcion1_automatica(books)
 
         elif opcion == 2:
-            m.opcion2()
+            m.opcion2(books)
+
         elif opcion == 3:
             m.opcion3()
         elif opcion == 4:

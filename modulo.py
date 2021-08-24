@@ -7,6 +7,9 @@ Functions Module
 
 # MÓDULO
 
+import random
+from registro import Libro
+
 def list_generator(size: int) -> list:
     """Create list with 'n' slots"""
     libros = size * [None]
@@ -30,14 +33,33 @@ def language_menu():
 
     print(lan_menu)
 
+#xd
+
+def opcion1_automatica(v):
+    for i in range(len(v)):
+        tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
+        isb = ('44--5', '5555--69', '75314--8') #despues cambiar
+        isbn = random.choice(tit)
+        titulo = random.choice(isb)
+        idioma = random.randint(0, 10)
+        genero = random.randint(0, 10)
+        precio = round(random.uniform(0, 100), 2)
+        v[i] = Libro(isbn,  titulo, genero, idioma, precio)
+    print()
+    print('\t\tVECTOR CARGADO')
+    print()
 
 
-def opcion1_automatica():
-    pass
+def mostrar_vector(v):
+    for i in range(len(v)):
+        print(v[i])
 
+def opcion2(v):
+    if v[0] is None:
+        print('Tiene que cargar el libro primero (opcion 1): ')
+    else:
+        mostrar_vector(v)
 
-def opcion2():
-    pass
 
 
 def opcion3():
