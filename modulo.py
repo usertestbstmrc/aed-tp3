@@ -23,7 +23,7 @@ def gender_menu():
 
     print(gen_menu)
 
-def languaje_menu():
+def language_menu():
     """Print Languaje menu"""
     lan_menu = '\nIDIOMA' + '\n|-> 1. Español' + '\n|-> 2. Inglés' + '\n|-> 3. Francés' \
             + '\n|-> 4. Italiano' + '\n|-> 5. Otros'
