@@ -33,7 +33,33 @@ def language_menu():
 
     print(lan_menu)
 
-#xd
+
+def validate_isbn_math_relation(isbn):
+    """Return boolean value True if isbn code math relation is valid"""
+    isbn_code_valid = False
+    isbn_only_numbers = []
+
+    for character in isbn:
+        if character in '0123456789':
+            char_parse_int = int(character)
+            isbn_only_numbers.append(char_parse_int)
+        else:
+            pass
+
+    pos = 10
+    addition = 0
+    for num in isbn_only_numbers:
+        mult = pos * num
+        addition += mult
+        pos -= 1
+
+    final_result = addition % 11
+
+    if final_result == 0:
+        isbn_code_valid = True
+
+    return isbn_code_valid
+
 
 def opcion1_automatica(v):
     for i in range(len(v)):
@@ -44,7 +70,7 @@ def opcion1_automatica(v):
         idioma = random.randint(0, 10)
         genero = random.randint(0, 10)
         precio = round(random.uniform(0, 100), 2)
-        v[i] = Libro(isbn,  titulo, genero, idioma, precio)
+        v[i] = Libro(isbn, titulo, genero, idioma, precio)
     print()
     print('\t\tVECTOR CARGADO')
     print()

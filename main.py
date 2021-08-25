@@ -34,8 +34,14 @@ def main():
                     for book in books:
                         book_index += 1
 
-                        isbn_info = input('ISBN: ')
-                        # FUNCION DE VALIDACIÓN DE MICA
+                        isbn_valid = False
+
+                        while not isbn_valid:
+                            isbn_info = input('ISBN: ')
+                            isbn_valid = m.validate_isbn_math_relation(isbn_info)
+                            print(isbn_valid)
+
+
                         title_info = input('TÍTULO: ')
 
                         gender_info = -1
