@@ -34,12 +34,72 @@ def language_menu():
     print(lan_menu)
 
 
-def validate_isbn_math_relation(isbn):
+def validate_isbn_format(isbn_code: str):
+    """Return boolean value True if isbn format is valid"""
+    format_valid = False
+    isbn = list(isbn_code)
+    msj = ''
+
+    if len(isbn) == 13:
+
+        isbn_numbers = []
+        isbn_separator = []
+        index = 0
+        isbn_characters = []
+
+        for character in isbn:
+
+            if character in '0123456789':
+                isbn_numbers.append(character)
+
+            elif character not in '0123456789':
+                isbn_characters.append(character)
+
+                if character == '-':
+                    isbn_separator.append(character)
+
+                    if index > 0:
+                        if isbn[index - 1] not in '0123456789':
+                            msj = 'Se ingresaron dos separadores juntos'
+                            break
+                else:
+                    msj = 'Se ingresó un caracter inválido'
+                    break
+
+            index += 1
+
+        if len(isbn_numbers) < 10:
+            msj = 'Faltan dígitos'
+
+        if len(isbn_separator) != 3:
+            msj = 'No son 4 grupos de números.'
+
+            if len(isbn_separator) < 3:
+                diff = 3 - len(isbn_separator)
+                msj += ' Faltan ' + str(diff) + ' separadores'
+            else:
+                diff = len(isbn_separator) - 3
+                msj += ' Hay ' + str(diff) + ' separador sobrante'
+
+        if msj == '':
+            format_valid = True
+
+    elif len(isbn) < 13:
+        msj = 'Faltan caracteres'
+
+    else:
+        msj = 'Se excede la cantidad de carácteres'
+
+    return format_valid, msj
+
+
+def validate_isbn_math_relation(isbn_code: str):
     """Return boolean value True if isbn code math relation is valid"""
     isbn_code_valid = False
     isbn_only_numbers = []
+    msj = ''
 
-    for character in isbn:
+    for character in isbn_code:
         if character in '0123456789':
             char_parse_int = int(character)
             isbn_only_numbers.append(char_parse_int)
@@ -58,7 +118,10 @@ def validate_isbn_math_relation(isbn):
     if final_result == 0:
         isbn_code_valid = True
 
-    return isbn_code_valid
+    if not isbn_code_valid:
+        msj = 'No se cumple la relación matemática'
+
+    return isbn_code_valid, msj
 
 
 def opcion1_automatica(v):

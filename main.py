@@ -11,6 +11,7 @@ from registro import Libro
 def main():
     """contents all calls fuctions from modulo and user interact instances"""
 
+    books = []
     opcion = None
     while opcion != 8:
         m.mostrar_opciones()
@@ -34,13 +35,18 @@ def main():
                     for book in books:
                         book_index += 1
 
-                        isbn_valid = False
+                        isbn_info = ''
+                        isbn_valid_format = False
+                        isbn_valid_math_rel = False
 
-                        while not isbn_valid:
+                        while not isbn_valid_format or not isbn_valid_math_rel:
                             isbn_info = input('ISBN: ')
-                            isbn_valid = m.validate_isbn_math_relation(isbn_info)
-                            print(isbn_valid)
-
+                            isbn_valid_format, msj_format = m.validate_isbn_format(isbn_info)
+                            isbn_valid_math_rel, msj_math = m.validate_isbn_math_relation(isbn_info)
+                            if not isbn_valid_format:
+                                print('ERROR DE FORMATO: ', msj_format)
+                            if not isbn_valid_math_rel:
+                                print('ERROR MATEMÁTICO: ', msj_math)
 
                         title_info = input('TÍTULO: ')
 
@@ -58,8 +64,6 @@ def main():
 
                         books[book_index] = Libro(isbn_info, title_info, gender_info, \
                                 language_info, price_info)
-
-                    break
 
                 elif opc_submenu == 2:
                     m.opcion1_automatica(books)
