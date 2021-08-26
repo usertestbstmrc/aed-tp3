@@ -11,7 +11,7 @@ class Libro:
     contiene los argumentos: isbn, titulo, genero, idioma, precio
     """
 
-    def __init__(self, isbn: str = '', titulo: str = '', genero: int = -1, idioma: int = -1 \
+    def __init__(self, isbn: str = '', titulo: str = '', genero: str = '', idioma: int = -1 \
             , precio: float = -1):
         """Función constructora"""
         self.isbn = isbn
