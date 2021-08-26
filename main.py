@@ -22,8 +22,8 @@ def main():
 
         if opcion == 1:
             print("Generación y carga de libros")
-
-            books_list_size = int(input('Cantidad de libros a ingresar al sistema: '))
+            #validar books_list_size
+            books_list_size = m.validar_carga(0, 'Cantidad de libros a ingresar al sistema: ')
             books = m.list_generator(books_list_size)
             opc_submenu = None
             vector_cargado = True
