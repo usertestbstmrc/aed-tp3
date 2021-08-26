@@ -123,16 +123,16 @@ def validate_isbn_math_relation(isbn_code: str):
 
     return isbn_code_valid, msj
 
-
+##### xd
 def opcion1_automatica(v):
     for i in range(len(v)):
         tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
-        isb = ('44--5', '5555--69', '75314--8') #despues cambiar
+        isb = ('0-7645-2641-3', '0-7645-2641-3', '0-7645-2641-3') #despues cambiar
         isbn = random.choice(tit)
         titulo = random.choice(isb)
-        idioma = random.randint(0, 10)
-        genero = random.randint(0, 10)
-        precio = round(random.uniform(0, 100), 2)
+        idioma = random.randint(1, 5)
+        genero = random.randint(0, 9)
+        precio = round(random.uniform(0, 10000000), 2)
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
     print()
     print('\t\tVECTOR CARGADO')
@@ -143,16 +143,21 @@ def mostrar_vector(v):
     for i in range(len(v)):
         print(v[i])
 
-def opcion2(v):
-    if v[0] is None:
-        print('Tiene que cargar el libro primero (opcion 1): ')
+def opcion2(v, vec_car):
+    if vec_car == False:
+        print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
         mostrar_vector(v)
 
 
 
-def opcion3():
-    pass
+def opcion3(v, vec_car, gen_nom):
+    if vec_car == False:
+        print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
+    else:
+        cant = contar_por_genero(v)
+        mostrar_conteo(cant, gen_nom)
+        mostrar_may(cant, gen_nom)
 
 
 def opcion4():
@@ -191,3 +196,48 @@ def print_submenu_opc1():
             + '\n|--> 2. Generación Automática' + '\n|'
 
     print(sub_m)
+
+
+def validar_carga(inf, mensaje):
+    n = int(input(mensaje))
+    while n <= inf:
+        n = int(input('¡ERROR!' + mensaje))
+    return n
+
+
+def contar_por_genero(v):
+    n = len(v)
+    cant = [0] * 10
+    for i in range(n):
+        pos = v[i].genero
+        cant[pos] += 1
+    return cant
+
+
+def mostrar_conteo(cant, gen_nom):
+    for i in range(len(cant)):
+        if cant[i] > 0:
+            print('Cantidad de libros de género ', gen_nom[i], ':', cant[i])
+
+
+def det_may(cant):
+    n = len(cant)
+    may = None
+    for i in range(n-1):
+        for j in range(i + 1, n):
+            if cant[i] > 0:
+                if cant[i] > cant[j]:
+                    may = cant[i]
+                elif cant[j] > cant[i]:
+                    may = cant[j]
+                else:
+                    may = cant[i]
+    return may
+
+
+def mostrar_may(cant, gen_nom):
+    may = det_may(cant)
+    for i in range(len(cant)):
+        if cant[i] == may:
+            print('El género más popular es:  ', gen_nom[i])
+            return

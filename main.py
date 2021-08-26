@@ -12,6 +12,8 @@ def main():
     """contents all calls fuctions from modulo and user interact instances"""
 
     books = []
+    gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+    vector_cargado = False
     opcion = None
     while opcion != 8:
         m.mostrar_opciones()
@@ -24,6 +26,7 @@ def main():
             books_list_size = int(input('Cantidad de libros a ingresar al sistema: '))
             books = m.list_generator(books_list_size)
             opc_submenu = None
+            vector_cargado = True
 
             while opc_submenu not in range(3):
                 m.print_submenu_opc1()
@@ -40,11 +43,14 @@ def main():
                         isbn_valid_math_rel = False
 
                         while not isbn_valid_format or not isbn_valid_math_rel:
+
                             isbn_info = input('ISBN: ')
                             isbn_valid_format, msj_format = m.validate_isbn_format(isbn_info)
                             isbn_valid_math_rel, msj_math = m.validate_isbn_math_relation(isbn_info)
+
                             if not isbn_valid_format:
                                 print('ERROR DE FORMATO: ', msj_format)
+
                             if not isbn_valid_math_rel:
                                 print('ERROR MATEMÁTICO: ', msj_math)
 
@@ -69,10 +75,10 @@ def main():
                     m.opcion1_automatica(books)
 
         elif opcion == 2:
-            m.opcion2(books)
+            m.opcion2(books, vector_cargado)
 
         elif opcion == 3:
-            m.opcion3()
+            m.opcion3(books, vector_cargado, gen_nom)
         elif opcion == 4:
             m.opcion4()
         elif opcion == 5:

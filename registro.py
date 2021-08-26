@@ -23,9 +23,6 @@ class Libro:
 
     def __str__(self) -> str:
         """Retorna una cadena de carateres str"""
-        s = '•|ISBN: ' + self.isbn + '|__'
-        s += '|Título: ' + self.titulo + '|__'
-        s += '|Género: ' + str(self.genero) + '|__'
-        s += '|Idioma: ' + str(self.genero) + '|__'
-        s += '|Precio: $' + str(self.precio) + '|'
-        return s
+        s_print = '|ISBN: {:<8} |Título: {:<10} |Genero: {:>4} |Idioma: {:>4} |Precio: {:>7} '
+        s_print = s_print.format(self.isbn, self.titulo, self.genero, self.idioma, self.precio)
+        return s_print
