@@ -87,7 +87,9 @@ def main():
         elif opcion == 6:
             m.opcion6()
         elif opcion == 7:
-            m.opcion7()
+            isbn_generado = m.auto_gen_isbn()
+            print(isbn_generado)
+            
         print('==' * 18)
     # hasta ahora esta bien el menu
     print('¡Hasta luego!')

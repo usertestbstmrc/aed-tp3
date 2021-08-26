@@ -123,18 +123,21 @@ def validate_isbn_math_relation(isbn_code: str):
 
     return isbn_code_valid, msj
 
-##### xd
+
 def opcion1_automatica(v):
-    for i in range(len(v)):
+    """Genera libros de forma automatica"""
+    v_range = len(v)
+
+    for i in range(v_range):
         tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
-        isb = ('0-7645-2641-3', '0-7645-2641-3', '0-7645-2641-3') #despues cambiar
         gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
-        isbn = random.choice(isb)
         titulo = random.choice(tit)
-        idioma = random.randint(1, 5)
         genero = random.choice(gen)
-        precio = round(random.uniform(0, 10000000), 2)
+        isbn = auto_gen_isbn()
+        idioma = random.randint(1, 5)
+        precio = round(random.uniform(0, 2000), 2)
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
+
     print()
     print('\t\tVECTOR CARGADO')
     print()
@@ -279,3 +282,42 @@ def recorrer_gen_inverso(gen_nom, pos):
         if pos == gen_nom[i]:
             c = i
     return c
+
+
+def auto_gen_isbn():
+    """Return isbn string with valid math relation and format"""
+    isbn_number = []
+
+    while isbn_number == []:
+
+        for i in range(10):
+            dig = random.randint(0, 9)
+            isbn_number.append(dig)
+
+        pos = 10
+        addition = 0
+        for num in isbn_number:
+            mult = pos * num
+            addition += mult
+            pos -= 1
+
+        final_result = addition % 11
+
+        if final_result != 0:
+            isbn_number = []
+
+        else:
+            break
+
+    string = str()
+    for num in isbn_number:
+        car = str(num)
+        string += car
+
+    string = list(string)
+
+    string = string[0] + string[1] + '-' + string[2] + string[3] \
+            + string[4] + string[5] + string[6] + '-' + string[7] \
+            + string[8] + '-' + string[9]
+
+    return string
