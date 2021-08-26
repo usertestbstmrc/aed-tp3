@@ -12,7 +12,7 @@ def main():
     """contents all calls fuctions from modulo and user interact instances"""
 
     books = []
-    gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+    gen_final = ''
     vector_cargado = False
     opcion = None
     while opcion != 8:
@@ -60,6 +60,7 @@ def main():
                         while gender_info not in range(10):
                             m.gender_menu()
                             gender_info = int(input('SELECCIONE EL GÉNERO: '))
+                            gen_final = m.recorrer_gen(gender_info)
 
                         language_info = -1
                         while language_info not in range (1, 6):
@@ -68,7 +69,7 @@ def main():
 
                         price_info = float(input('PRECIO: '))
 
-                        books[book_index] = Libro(isbn_info, title_info, gender_info, \
+                        books[book_index] = Libro(isbn_info, title_info, gen_final, \
                                 language_info, price_info)
 
                 elif opc_submenu == 2:
@@ -78,9 +79,9 @@ def main():
             m.opcion2(books, vector_cargado)
 
         elif opcion == 3:
-            m.opcion3(books, vector_cargado, gen_nom)
+            m.opcion3(books, vector_cargado)
         elif opcion == 4:
-            m.opcion4()
+            m.opcion4(books)
         elif opcion == 5:
             m.opcion5()
         elif opcion == 6:

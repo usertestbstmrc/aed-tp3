@@ -128,10 +128,11 @@ def opcion1_automatica(v):
     for i in range(len(v)):
         tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
         isb = ('0-7645-2641-3', '0-7645-2641-3', '0-7645-2641-3') #despues cambiar
-        isbn = random.choice(tit)
-        titulo = random.choice(isb)
+        gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
+        isbn = random.choice(isb)
+        titulo = random.choice(tit)
         idioma = random.randint(1, 5)
-        genero = random.randint(0, 9)
+        genero = random.choice(gen)
         precio = round(random.uniform(0, 10000000), 2)
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
     print()
@@ -143,6 +144,7 @@ def mostrar_vector(v):
     for i in range(len(v)):
         print(v[i])
 
+
 def opcion2(v, vec_car):
     if vec_car == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
@@ -151,18 +153,35 @@ def opcion2(v, vec_car):
 
 
 
-def opcion3(v, vec_car, gen_nom):
-    if vec_car == False:
+def opcion3(v, vec_car):
+    gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
+            'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+
+    if not vec_car:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
-        cant = contar_por_genero(v)
+        cant = contar_por_genero(v, gen_nom)
         mostrar_conteo(cant, gen_nom)
         mostrar_may(cant, gen_nom)
 
 
-def opcion4():
-    pass
+def opcion4(v):
+    men_precio = 0
+    may_precio = 0
+    tit_mayor = ''
+    idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
 
+    for i in range(len(v)):
+        if v[i].idioma == idi_elegido:
+            if v[i].precio > men_precio:
+                may_precio = v[i].precio
+                tit_mayor = v[i].titulo
+
+    if may_precio != 0:
+        print('El libro de mayor precio es: ', tit_mayor)
+        print('Este libro vale: $', may_precio)
+    else:
+        print('No se cargo ningun libro de ese idioma')
 
 def opcion5():
     pass
@@ -205,12 +224,13 @@ def validar_carga(inf, mensaje):
     return n
 
 
-def contar_por_genero(v):
+def contar_por_genero(v, gen_nom):
     n = len(v)
     cant = [0] * 10
     for i in range(n):
         pos = v[i].genero
-        cant[pos] += 1
+        posc = recorrer_gen_inverso(gen_nom, pos)
+        cant[posc] += 1
     return cant
 
 
@@ -222,16 +242,10 @@ def mostrar_conteo(cant, gen_nom):
 
 def det_may(cant):
     n = len(cant)
-    may = None
-    for i in range(n-1):
-        for j in range(i + 1, n):
-            if cant[i] > 0:
-                if cant[i] > cant[j]:
-                    may = cant[i]
-                elif cant[j] > cant[i]:
-                    may = cant[j]
-                else:
-                    may = cant[i]
+    may = 0
+    for i in range(n):
+        if cant[i] > may:
+            may = cant[i]
     return may
 
 
@@ -239,5 +253,29 @@ def mostrar_may(cant, gen_nom):
     may = det_may(cant)
     for i in range(len(cant)):
         if cant[i] == may:
-            print('El género más popular es:  ', gen_nom[i])
+            print('El género más popular es: ', gen_nom[i])
             return
+
+
+def recorrer_gen(gender_info):
+    gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
+            'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+
+    range_gender_list = len(gen_nom)
+    index = 0
+
+    for i in range(range_gender_list):
+        if i == gender_info:
+            index = i
+            break
+    
+    return gen_nom[index]
+
+
+def recorrer_gen_inverso(gen_nom, pos):
+    n = len(gen_nom)
+    c = 0
+    for i in range(n):
+        if pos == gen_nom[i]:
+            c = i
+    return c
