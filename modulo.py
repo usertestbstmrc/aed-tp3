@@ -131,10 +131,11 @@ def opcion1_automatica(v):
     for i in range(v_range):
         tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
         gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
+        id = ('Español', 'Inglés', 'Francés', 'Italiano', 'Otros')
         titulo = random.choice(tit)
         genero = random.choice(gen)
         isbn = auto_gen_isbn()
-        idioma = random.randint(1, 5)
+        idioma = random.choice(id)
         precio = round(random.uniform(0, 2000), 2)
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
 
@@ -168,30 +169,39 @@ def opcion3(v, vec_car):
         mostrar_may(cant, gen_nom)
 
 
-def opcion4(v):
-    men_precio = 0
-    may_precio = 0
-    tit_mayor = ''
-    idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
-
-    for i in range(len(v)):
-        if v[i].idioma == idi_elegido:
-            if v[i].precio > men_precio:
-                may_precio = v[i].precio
-                tit_mayor = v[i].titulo
-
-    if may_precio != 0:
-        print('El libro de mayor precio es: ', tit_mayor)
-        print('Este libro vale: $', may_precio)
+def opcion4(v, vector_cargado):
+    if vector_cargado == False:
+        print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
-        print('No se cargo ningun libro de ese idioma')
+        men_precio = 0
+        may_precio = 0
+        tit_mayor = ''
+        idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
+        for i in range(len(v)):
+            pos = v[i].idioma
+            posc = recorrer_idioma_inverso(pos)
+            if posc == idi_elegido:
+                if v[i].precio > men_precio:
+                    may_precio = v[i].precio
+                    tit_mayor = v[i].titulo
 
-def opcion5():
-    pass
+        if may_precio != 0:
+            print('El libro de mayor precio es: ', tit_mayor)
+            print('Este libro vale: $', may_precio)
+        else:
+            print('No se cargo ningun libro de ese idioma')
 
 
-def opcion6():
-    pass
+def opcion5(v, vec_car):
+    if vec_car == False:
+        print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
+
+
+def opcion6(v, vec_car):
+    if vec_car == False:
+        print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
+    else:
+        mostrar_datos_may(v)
 
 
 def opcion7():
@@ -260,7 +270,7 @@ def mostrar_may(cant, gen_nom):
             return
 
 
-def recorrer_gen(gender_info):
+def recorrer_gen(genero_info):
     gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
             'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
 
@@ -268,12 +278,31 @@ def recorrer_gen(gender_info):
     index = 0
 
     for i in range(range_gender_list):
-        if i == gender_info:
+        if i == genero_info:
             index = i
             break
     
     return gen_nom[index]
 
+
+def recorrer_idioma(idioma_info):
+    idioma_nom = ['Español', 'Inglés', 'Francés', 'Italiano', 'Otros']
+    range_idioma_list = len(idioma_nom)
+    index = 0
+    for i in range(range_idioma_list):
+        if i == idioma_info:
+            index = i
+            break
+    return idioma_nom[index]
+
+def recorrer_idioma_inverso(pos):
+    idioma_nom = ['0','Español', 'Inglés', 'Francés', 'Italiano', 'Otros']
+    n = len(idioma_nom)
+    c = 0
+    for i in range(n):
+        if pos == idioma_nom[i]:
+            c = i
+    return c
 
 def recorrer_gen_inverso(gen_nom, pos):
     n = len(gen_nom)
@@ -321,3 +350,32 @@ def auto_gen_isbn():
             + string[8] + '-' + string[9]
 
     return string
+
+def mostrar_datos_may(v):
+    gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
+            'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+    cant = contar_por_genero(v, gen_nom)
+    may_n = det_may_nom(cant, gen_nom)
+    ordenar_precio(v)
+    for i in range(len(v)):
+        if v[i].genero == may_n:
+            print(v[i])
+
+
+def det_may_nom(cant, gen_nom):
+    n = len(cant)
+    may_nom = 0
+    may = 0
+    for i in range(n):
+        if cant[i] > may:
+            may_nom = gen_nom[i]
+            may = cant[i]
+    return may_nom
+
+
+def ordenar_precio(v):
+    n = len(v)
+    for i in range(n-1):
+        for j in range(i + 1, n):
+            if v[i].precio < v[j].precio:
+                v[i], v[j] = v[j], v[i]
