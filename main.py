@@ -19,10 +19,9 @@ def main():
     while opcion != 8:
         m.mostrar_opciones()
         opcion = int(input('Ingrese su opción: '))
-        print('\n')
 
         if opcion == 1:
-            print("Generación y carga de libros")
+            print('==' * 18)
             #validar books_list_size
             books_list_size = m.validar_carga(0, 'Cantidad de libros a ingresar al sistema: ')
             books = m.list_generator(books_list_size)
@@ -83,9 +82,11 @@ def main():
         elif opcion == 3:
             m.opcion3(books, vector_cargado)
         elif opcion == 4:
-            m.opcion4(books, vector_cargado)
+            idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
+            m.opcion4(books, vector_cargado, idi_elegido)
         elif opcion == 5:
-            m.opcion5(books, vector_cargado)
+            isbn_buscado = input('Ingrese el ISNB del libro que quiere buscar: ')
+            m.opcion5(books, vector_cargado, isbn_buscado)
         elif opcion == 6:
             m.opcion6(books, vector_cargado)
         elif opcion == 7:
@@ -95,7 +96,6 @@ def main():
                 isbn_generado = m.auto_gen_isbn()
                 print(isbn_generado)
             
-        print('==' * 18)
     print('¡Hasta luego!')
 
 
