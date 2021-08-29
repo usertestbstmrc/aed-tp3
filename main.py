@@ -13,6 +13,7 @@ def main():
 
     books = []
     gen_final = ''
+    leng_final = ''
     vector_cargado = False
     opcion = None
     while opcion != 8:
@@ -63,35 +64,38 @@ def main():
                             gen_final = m.recorrer_gen(gender_info)
 
                         language_info = -1
-                        while language_info not in range (1, 6):
+                        while language_info not in range(1, 6):
                             m.language_menu()
                             language_info = int(input('IDIOMA: '))
+                            leng_info = language_info - 1
+                            leng_final = m.recorrer_idioma(leng_info)
 
                         price_info = float(input('PRECIO: '))
 
                         books[book_index] = Libro(isbn_info, title_info, gen_final, \
-                                language_info, price_info)
+                                leng_final, price_info)
 
                 elif opc_submenu == 2:
                     m.opcion1_automatica(books)
 
         elif opcion == 2:
             m.opcion2(books, vector_cargado)
-
         elif opcion == 3:
             m.opcion3(books, vector_cargado)
         elif opcion == 4:
-            m.opcion4(books)
+            m.opcion4(books, vector_cargado)
         elif opcion == 5:
-            m.opcion5()
+            m.opcion5(books, vector_cargado)
         elif opcion == 6:
-            m.opcion6()
+            m.opcion6(books, vector_cargado)
         elif opcion == 7:
-            isbn_generado = m.auto_gen_isbn()
-            print(isbn_generado)
+            if vector_cargado == False:
+                print('Tiene que cargar la cantidad de libros primero (opcion 1)')
+            else:
+                isbn_generado = m.auto_gen_isbn()
+                print(isbn_generado)
             
         print('==' * 18)
-    # hasta ahora esta bien el menu
     print('¡Hasta luego!')
 
 
