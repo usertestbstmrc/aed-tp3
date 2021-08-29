@@ -129,20 +129,24 @@ def opcion1_automatica(v):
     v_range = len(v)
 
     for i in range(v_range):
-        tit = ('Harry Potter', 'Percy Jackson', 'El Principito')
-        gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
-        id = ('Español', 'Inglés', 'Francés', 'Italiano', 'Otros')
+        tit = ('Harry Potter', 'Percy Jackson', 'El Principito', 'Cien años de soledad',
+                'El señor de los anillos', 'Un mundo feliz', 'Orgullo y prejuicio',
+                'Crimen y castigo', 'Lolita', 'Ulises')
+
+        gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',
+                'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
+
+        lang_list = ('Español', 'Inglés', 'Francés', 'Italiano', 'Otros')
         titulo = random.choice(tit)
         genero = random.choice(gen)
         isbn = auto_gen_isbn()
-        idioma = random.choice(id)
+        idioma = random.choice(lang_list)
         precio = round(random.uniform(0, 2000), 2)
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
 
     print()
-    print('\t\tVECTOR CARGADO')
+    print('\t\t\tVECTOR CARGADO')
     print()
-
 
 def mostrar_vector(v):
     for i in range(len(v)):
@@ -154,7 +158,6 @@ def opcion2(v, vec_car):
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
         mostrar_vector(v)
-
 
 
 def opcion3(v, vec_car):
@@ -169,14 +172,13 @@ def opcion3(v, vec_car):
         mostrar_may(cant, gen_nom)
 
 
-def opcion4(v, vector_cargado):
+def opcion4(v, vector_cargado,idi_elegido):
     if vector_cargado == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
         men_precio = 0
         may_precio = 0
         tit_mayor = ''
-        idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
         for i in range(len(v)):
             pos = v[i].idioma
             posc = recorrer_idioma_inverso(pos)
@@ -192,9 +194,25 @@ def opcion4(v, vector_cargado):
             print('No se cargo ningun libro de ese idioma')
 
 
-def opcion5(v, vec_car):
-    if vec_car == False:
+def opcion5(v, vector_cargado, isbn_buscado):
+    if vector_cargado == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
+    else:
+        format_valid, msj1 = validate_isbn_format(isbn_buscado)
+        isbn_code_valid, msj2 = validate_isbn_math_relation(isbn_buscado)
+        if format_valid:
+            if isbn_code_valid:
+                for i in range(len(v)):
+                    if v[i].isbn == isbn_buscado:
+                        precio_total = v[i].precio + (10 * v[i].precio / 100)
+                        v[i].precio = precio_total
+                        print('|ISBN:', v[i].isbn, '   |TITULO:', v[i].titulo, '   |GENERO:', v[i].genero, '   |IDIOMA:', v[i].idioma, '   |PRECIO:', v[i].precio)
+                    else:
+                        print('El libro no existe.')
+            else:
+                print(msj2)
+        else:
+            print(msj1)
 
 
 def opcion6(v, vec_car):
@@ -219,6 +237,7 @@ def mostrar_opciones():
     print('6. Consulta de un género:')
     print('7. Consulta de precio por grupo:')
     print('8. Salir')
+    print('==' * 18)
 
 
 def print_submenu_opc1():
@@ -354,6 +373,7 @@ def auto_gen_isbn():
 def mostrar_datos_may(v):
     gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
             'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+
     cant = contar_por_genero(v, gen_nom)
     may_n = det_may_nom(cant, gen_nom)
     ordenar_precio(v)
