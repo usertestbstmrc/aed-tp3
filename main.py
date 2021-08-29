@@ -79,23 +79,55 @@ def main():
 
         elif opcion == 2:
             m.opcion2(books, vector_cargado)
+
         elif opcion == 3:
             m.opcion3(books, vector_cargado)
+
         elif opcion == 4:
             idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
             m.opcion4(books, vector_cargado, idi_elegido)
+
         elif opcion == 5:
             isbn_buscado = input('Ingrese el ISNB del libro que quiere buscar: ')
             m.opcion5(books, vector_cargado, isbn_buscado)
+
         elif opcion == 6:
             m.opcion6(books, vector_cargado)
+
         elif opcion == 7:
-            if vector_cargado == False:
+            if not vector_cargado:
                 print('Tiene que cargar la cantidad de libros primero (opcion 1)')
+
             else:
-                isbn_generado = m.auto_gen_isbn()
-                print(isbn_generado)
-            
+                breakpoint()
+                request_isbn_list = []
+                msj = 'Ingrese el ISBN [(e)xit para salir]: '
+                msj_error = 'Ingrese ISBN válido [(e)xit para salir]: '
+                request_isbn = ''
+
+                while request_isbn != 'e':
+                    request_isbn = input(msj)
+                    isbn_valid_format, msj_format = m.validate_isbn_format(request_isbn)
+                    isbn_valid_math_rel, msj_math = m.validate_isbn_math_relation(request_isbn)
+
+                    while not isbn_valid_format or not isbn_valid_math_rel:
+                        if not isbn_valid_format:
+                            print('ERROR DE FORMATO: ', msj_format)
+
+                        if not isbn_valid_math_rel:
+                            print('ERROR MATEMÁTICO: ', msj_math)
+
+                        request_isbn = input(msj_error)
+                        if request_isbn == 'e':
+                            break
+
+                        isbn_valid_format, msj_format = m.validate_isbn_format(request_isbn)
+                        isbn_valid_math_rel, msj_math = m.validate_isbn_math_relation(request_isbn)
+
+                    if request_isbn != 'e':
+                        request_isbn_list.append(request_isbn)
+
+
     print('¡Hasta luego!')
 
 
