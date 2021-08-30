@@ -5,7 +5,7 @@ Functions Module
 + All functions are documented
 """
 
-# MÓDULO
+# MÓDULO mic
 
 import random
 from registro import Libro
@@ -131,7 +131,9 @@ def opcion1_automatica(v):
     for i in range(v_range):
         tit = ('Harry Potter', 'Percy Jackson', 'El Principito', 'Cien años de soledad',
                 'El señor de los anillos', 'Un mundo feliz', 'Orgullo y prejuicio',
-                'Crimen y castigo', 'Lolita', 'Ulises')
+                'Crimen y castigo', 'Lolita', 'Ulises', 'El gran Gatsby', 'Mil soles espléndidos',
+               'Alicia en el país de las maravillas', 'Rebelión en la granja', 'Los pilares de la tierra',
+               'Guerra y paz', 'Memorias de una geisha', 'Frankenstein', 'Los viajes de Gulliver', 'La ladrona de libros')
 
         gen = ('Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',
                 'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros')
@@ -145,7 +147,7 @@ def opcion1_automatica(v):
         v[i] = Libro(isbn, titulo, genero, idioma, precio)
 
     print()
-    print('\t\t\tVECTOR CARGADO')
+    print('\t\tVECTOR CARGADO')
     print()
 
 def mostrar_vector(v):
@@ -157,6 +159,7 @@ def opcion2(v, vec_car):
     if vec_car == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
+        print('Datos de los libros: \n')
         mostrar_vector(v)
 
 
@@ -167,6 +170,7 @@ def opcion3(v, vec_car):
     if not vec_car:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
+        print('Conteo y género más popular\n')
         cant = contar_por_genero(v, gen_nom)
         mostrar_conteo(cant, gen_nom)
         mostrar_may(cant, gen_nom)
@@ -198,28 +202,36 @@ def opcion5(v, vector_cargado, isbn_buscado):
     if vector_cargado == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
+        encontrado = False
         format_valid, msj1 = validate_isbn_format(isbn_buscado)
         isbn_code_valid, msj2 = validate_isbn_math_relation(isbn_buscado)
         if format_valid:
             if isbn_code_valid:
                 for i in range(len(v)):
                     if v[i].isbn == isbn_buscado:
+                        encontrado = True
                         precio_total = v[i].precio + (10 * v[i].precio / 100)
                         v[i].precio = precio_total
-                        print('|ISBN:', v[i].isbn, '   |TITULO:', v[i].titulo, '   |GENERO:', v[i].genero, '   |IDIOMA:', v[i].idioma, '   |PRECIO:', v[i].precio)
-                    else:
-                        print('El libro no existe.')
+                        print(v[i])
+
             else:
                 print(msj2)
         else:
             print(msj1)
+        if not encontrado:
+            print('El libro no existe.')
 
 
-def opcion6(v, vec_car):
+def opcion6(v, vec_car, cant, vec_cant):
     if vec_car == False:
         print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
     else:
-        mostrar_datos_may(v)
+        if vec_cant:
+            mostrar_datos_may(v, cant)
+        else:
+            print('--' * 35)
+            print('\t\tPrimero cagar opcion 3')
+            print('--' * 35)
 
 
 def opcion7():
@@ -269,7 +281,7 @@ def contar_por_genero(v, gen_nom):
 def mostrar_conteo(cant, gen_nom):
     for i in range(len(cant)):
         if cant[i] > 0:
-            print('Cantidad de libros de género ', gen_nom[i], ':', cant[i])
+            print('*Cantidad de libros de género ', gen_nom[i], ':', cant[i])
 
 
 def det_may(cant):
@@ -285,7 +297,7 @@ def mostrar_may(cant, gen_nom):
     may = det_may(cant)
     for i in range(len(cant)):
         if cant[i] == may:
-            print('El género más popular es: ', gen_nom[i])
+            print('*El género más popular es: ', gen_nom[i])
             return
 
 
@@ -370,11 +382,11 @@ def auto_gen_isbn():
 
     return string
 
-def mostrar_datos_may(v):
+
+def mostrar_datos_may(v, cant):
     gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía',\
             'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
-
-    cant = contar_por_genero(v, gen_nom)
+    #cant = contar_por_genero(v, gen_nom)
     may_n = det_may_nom(cant, gen_nom)
     ordenar_precio(v)
     for i in range(len(v)):

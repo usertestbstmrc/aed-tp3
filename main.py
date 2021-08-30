@@ -4,7 +4,7 @@
 this module execute main program
 """
 
-# MAIN
+# MAIN mica
 import modulo as m
 from registro import Libro
 
@@ -12,16 +12,17 @@ def main():
     """contents all calls fuctions from modulo and user interact instances"""
 
     books = []
+    cant = []
     gen_final = ''
     leng_final = ''
     vector_cargado = False
     opcion = None
+    vec_cant = False
     while opcion != 8:
         m.mostrar_opciones()
         opcion = int(input('Ingrese su opción: '))
-
+        print('==' * 18)
         if opcion == 1:
-            print('==' * 18)
             #validar books_list_size
             books_list_size = m.validar_carga(0, 'Cantidad de libros a ingresar al sistema: ')
             books = m.list_generator(books_list_size)
@@ -31,6 +32,7 @@ def main():
             while opc_submenu not in range(3):
                 m.print_submenu_opc1()
                 opc_submenu = int(input('|--> Ingrese su opción: '))
+                print('==' * 18)
                 book_index = -1
 
                 if opc_submenu == 1:
@@ -81,18 +83,28 @@ def main():
             m.opcion2(books, vector_cargado)
 
         elif opcion == 3:
-            m.opcion3(books, vector_cargado)
+            gen_nom = ['Autoayuda', 'Arte', 'Ficción', 'Computación', 'Economía', \
+                       'Escolar', 'Sociedad', 'Gastronomía', 'Infantil', 'Otros']
+
+            cant = m.contar_por_genero(books, gen_nom)
+            m.opcion3(vector_cargado, cant)
+            vec_cant = True
 
         elif opcion == 4:
+            print('Búsqueda del mayor\n')
             idi_elegido = int(input('Ingrese el idioma de que quiere buscar el libro de mayor precio (1-5): '))
             m.opcion4(books, vector_cargado, idi_elegido)
 
         elif opcion == 5:
-            isbn_buscado = input('Ingrese el ISNB del libro que quiere buscar: ')
-            m.opcion5(books, vector_cargado, isbn_buscado)
+            if not vector_cargado:
+                print('Tiene que cargar la cantidad de libros primero (opcion 1): ')
+            else:
+                print('Búsqueda por ISBN\n')
+                isbn_buscado = input('Ingrese el ISNB del libro que quiere buscar: ')
+                m.opcion5(books, vector_cargado, isbn_buscado)
 
         elif opcion == 6:
-            m.opcion6(books, vector_cargado)
+            m.opcion6(books, vector_cargado, cant, vec_cant)
 
         elif opcion == 7:
             if not vector_cargado:
